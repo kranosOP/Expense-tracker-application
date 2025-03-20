@@ -20,7 +20,9 @@ const Register = () => {
     e.preventDefault();
     
     // Password Validation: At least 6 characters, 1 number, 1 special char
-    const passwordRegex = /^(?=.[0-9])(?=.[!@#$%^&])[a-zA-Z0-9!@#$%^&]{6,}$/;
+    // const passwordRegex = /^(?=.[0-9])(?=.[!@#$%^&])[a-zA-Z0-9!@#$%^&]{6,}$/;
+    const passwordRegex = /^(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{6,}$/;
+
     if (!passwordRegex.test(formData.password)) {
       alert("Password must be at least 6 characters and include a number & special character.");
       return;
@@ -29,7 +31,7 @@ const Register = () => {
     setLoading(true);
     try {
       const response = await registerUser(formData); // Send username directly
-     // alert(response.message);
+     alert(response.message);
       navigate("/dashboard");
     } catch (error) {
       alert(error.message || "Registration failed! Try again.");

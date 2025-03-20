@@ -3,16 +3,15 @@ const bcrypt = require("bcrypt");
 
 const UserSchema = new mongoose.Schema({
     username: { type: String, unique: true, required: true },
-    email: { type: String, unique: true, required: true },  // ✅ Add this line
+    email: { type: String, unique: true, required: true }, 
     password: { type: String, required: true }
 });
 
 
-// Hash password before saving
 UserSchema.pre("save", async function (next) {
   try {
     if (!this.isModified("password")) return next();
-    console.log("Hashing password for:", this.email); // Debugging ke liye
+    console.log("Hashing password for:", this.email); 
     this.password = await bcrypt.hash(this.password, 10);
     console.log("Password hashed successfully!");
     next();
